@@ -3,12 +3,10 @@ import os
 import re
 from fuzzywuzzy import process
 
-
 # Function to load JSON data from file
 def load_data(filepath):
     with open(filepath, 'r', encoding='utf-8') as file:
         return json.load(file)
-
 
 # Function to create reverse dictionary
 def create_reverse_dictionary(data):
@@ -23,20 +21,15 @@ def create_reverse_dictionary(data):
                 reverse_data[normalize_text(translation)] = (key, value['example'])
     return reverse_data
 
-
 # Function to normalize text
 def normalize_text(text):
     return re.sub(r'\W+', '', text.lower())
 
-
 # Function to suggest words with improved relevance
 def suggest_word(word, reverse_data):
     normalized_word = normalize_text(word)
-
-    # Attempt to find the closest match in the reverse dictionary
     choices = list(reverse_data.keys())
 
-    # Filter out suggestions that don't start with the same prefix
     filtered_choices = [choice for choice in choices if choice.startswith(normalized_word[0])]
 
     if filtered_choices:
@@ -50,33 +43,53 @@ def suggest_word(word, reverse_data):
         return None, None
 
 
-# Function to look up translations
 def lookup(word, data):
     normalized_word = normalize_text(word)
 
+    # Vérifie la clé principale
     if normalized_word in data:
-        entry = data[normalized_word]
-        if isinstance(entry, list):
-            for idx, item in enumerate(entry):
-                print(
-                    f"{idx + 1}- '{word}' in Algerian is '{item['translations'][0]}'. "
-                    f"Example: '{item['example']['arabic']}' means '{item['example']['english']}'"
-                )
+        entries = data[normalized_word]
+
+        # Si c'est une liste, traite chaque entrée
+        if isinstance(entries, list):
+            for idx, entry in enumerate(entries):
+                translations = entry['translations']
+                print(f"{idx + 1}- '{word}' in Algerian is '{translations[0]}'. "
+                      f"Example: '{entry['example']['arabic']}' means '{entry['example']['english']}'")
+        else:  # Traitement pour les objets uniques
+            translations = entries['translations']
+            print(f"'{word}' means '{translations[0]}' in Algerian. "
+                  f"Example: '{entries['example']['arabic']}' means '{entries['example']['english']}'")
+        return True  # Retourne True si trouvé
+
+    # Vérifie les traductions inversées seulement si le mot n'a pas été trouvé
+    for key, value in data.items():
+        if isinstance(value, list):  # Assurez-vous que la valeur est une liste
+            for item in value:
+                translations = item['translations']
+                for translation in translations:
+                    if normalize_text(translation) == normalized_word:
+                        print(f"'{translation}' means '{key}' in English. "
+                              f"Example: '{item['example']['arabic']}' means '{item['example']['english']}'")
+                        return True
         else:
-            print(
-                f"'{word}' means '{entry['translations'][0]}' in Algerian. "
-                f"Example: '{entry['example']['arabic']}' means '{entry['example']['english']}'"
-            )
-        return True
+            # Traitement pour les objets uniques
+            translations = value['translations']
+            if normalize_text(translations[0]) == normalized_word:
+                print(f"'{translations[0]}' means '{key}' in English. "
+                      f"Example: '{value['example']['arabic']}' means '{value['example']['english']}'")
+                return True
+
+    print("Mot non trouvé.")
     return False
 
 
 # Function to handle translation lookup and suggestions
 def translate(word, data, reverse_data):
-    if lookup(word, data):
-        return
+    if lookup(word, data):  # Si le mot est trouvé
+        return  # Sort si trouvé
 
-    # If not found, provide suggestions with improved relevance
+    # Si pas trouvé, fournir des suggestions
     suggestion, details = suggest_word(word, reverse_data)
 
     if suggestion:
@@ -88,7 +101,6 @@ def translate(word, data, reverse_data):
         )
     else:
         print("Word not found in the dictionary and no suggestions available.")
-
 
 # Main function
 def main():
@@ -109,7 +121,6 @@ def main():
             break
 
         translate(user_input, data, reverse_data)
-
 
 if __name__ == "__main__":
     main()
