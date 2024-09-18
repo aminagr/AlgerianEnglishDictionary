@@ -4,18 +4,18 @@ import os
 
 app = Flask(__name__)
 
-# Chemin vers le fichier JSON
+# Path to the JSON file
 script_dir = os.path.dirname(__file__)
-filepath = os.path.join(script_dir, '../data/dictionnary.json')
+filepath = os.path.join(script_dir, '../data/dictionary.json')
 
-# Charger les données et créer le dictionnaire inverse
+# Load the data and create the reverse dictionary
 data = load_data(filepath)
 reverse_data = create_reverse_dictionary(data)
 
 def lookup(word, data):
     normalized_word = normalize_text(word)
 
-    # Vérifie si le mot est en anglais
+    # Check if the word is in English
     if normalized_word in data:
         entries = data[normalized_word]
         translations = []
@@ -37,7 +37,7 @@ def lookup(word, data):
             "translations": translations
         }
 
-    # Vérifie si le mot est en arabe
+    # Check if the word is in Arabic
     for key, value in data.items():
         if isinstance(value, list):
             for item in value:
@@ -67,13 +67,13 @@ def translate_word():
     if not word:
         return jsonify({"error": "Word not provided."}), 400
 
-    # Chercher le mot dans le dictionnaire
+    # Search for the word in the dictionary
     result = lookup(word, data)
 
     if result:
         return jsonify(result)
 
-    # Si le mot n'est pas trouvé, proposer des suggestions
+    # If the word is not found, suggest alternatives
     suggestion, details = suggest_word(word, reverse_data)
 
     if suggestion:

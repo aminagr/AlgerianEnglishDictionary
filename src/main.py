@@ -106,7 +106,7 @@ def translate(word, data, reverse_data):
 def main():
     # Define the path to the JSON file relative to the script
     script_dir = os.path.dirname(__file__)
-    filepath = os.path.join(script_dir, '../data/dictionnary.json')
+    filepath = os.path.join(script_dir, '../data/dictionary.json')
 
     # Load data from JSON file
     data = load_data(filepath)
