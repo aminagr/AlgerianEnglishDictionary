@@ -1,6 +1,6 @@
-# Algerian English Dictionary 
+# Algerian-English Dictionary 
 
-A Python app designed for translating words between English and Algerian Arabic. This app not only provides accurate translations but also offers contextual examples to enhance understanding.
+Welcome to the **Algerian English Dictionary**! This versatile Python project serves as both an application and an API, designed to bridge the language gap between English and Algerian Arabic. Whether you're a student eager to enhance your vocabulary, a traveler preparing for your next adventure in Algeria, or a developer looking to integrate translation capabilities into your application, this project provides instant translations, smart suggestions, and contextual examples to enrich your language learning journey.
 
 ## 🚀 Features
 
