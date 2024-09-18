@@ -8,7 +8,7 @@ def load_data(filepath):
     with open(filepath, 'r', encoding='utf-8') as file:
         return json.load(file)
 
-# Function to create reverse dictionary
+# Function to create a reverse dictionary
 def create_reverse_dictionary(data):
     reverse_data = {}
     for key, value in data.items():
@@ -30,6 +30,7 @@ def suggest_word(word, reverse_data):
     normalized_word = normalize_text(word)
     choices = list(reverse_data.keys())
 
+    # Filter choices that start with the same letter as the input word
     filtered_choices = [choice for choice in choices if choice.startswith(normalized_word[0])]
 
     if filtered_choices:
@@ -42,29 +43,28 @@ def suggest_word(word, reverse_data):
     else:
         return None, None
 
-
 def lookup(word, data):
     normalized_word = normalize_text(word)
 
-    # Vérifie la clé principale
+    # Check the main key
     if normalized_word in data:
         entries = data[normalized_word]
 
-        # Si c'est une liste, traite chaque entrée
+        # If it's a list, process each entry
         if isinstance(entries, list):
             for idx, entry in enumerate(entries):
                 translations = entry['translations']
                 print(f"{idx + 1}- '{word}' in Algerian is '{translations[0]}'. "
                       f"Example: '{entry['example']['arabic']}' means '{entry['example']['english']}'")
-        else:  # Traitement pour les objets uniques
+        else:  # Processing for single objects
             translations = entries['translations']
             print(f"'{word}' means '{translations[0]}' in Algerian. "
                   f"Example: '{entries['example']['arabic']}' means '{entries['example']['english']}'")
-        return True  # Retourne True si trouvé
+        return True  # Return True if found
 
-    # Vérifie les traductions inversées seulement si le mot n'a pas été trouvé
+    # Check reverse translations only if the word wasn't found
     for key, value in data.items():
-        if isinstance(value, list):  # Assurez-vous que la valeur est une liste
+        if isinstance(value, list):  # Ensure the value is a list
             for item in value:
                 translations = item['translations']
                 for translation in translations:
@@ -73,23 +73,22 @@ def lookup(word, data):
                               f"Example: '{item['example']['arabic']}' means '{item['example']['english']}'")
                         return True
         else:
-            # Traitement pour les objets uniques
+            # Processing for single objects
             translations = value['translations']
             if normalize_text(translations[0]) == normalized_word:
                 print(f"'{translations[0]}' means '{key}' in English. "
                       f"Example: '{value['example']['arabic']}' means '{value['example']['english']}'")
                 return True
 
-    print("Mot non trouvé.")
+    print("Word not found.")
     return False
-
 
 # Function to handle translation lookup and suggestions
 def translate(word, data, reverse_data):
-    if lookup(word, data):  # Si le mot est trouvé
-        return  # Sort si trouvé
+    if lookup(word, data):  # If the word is found
+        return  # Exit if found
 
-    # Si pas trouvé, fournir des suggestions
+    # If not found, provide suggestions
     suggestion, details = suggest_word(word, reverse_data)
 
     if suggestion:
