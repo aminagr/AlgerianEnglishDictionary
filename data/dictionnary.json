@@ -1,0 +1,67 @@
+{
+  "why": {
+    "translations": ["3lesh", "wa3lash", "علاش"],
+    "example": {
+      "arabic": "3lesh khelitni wahdi?",
+      "english": "Why did you leave me alone?"
+    }
+  },
+  "house": {
+    "translations": ["dar", "دار"],
+    "example": {
+      "arabic": "Had dar chaba",
+      "english": "This house is beautiful"
+    }
+  },
+  "name": {
+    "translations": ["ism", "اسم"],
+    "example": {
+      "arabic": "Ismi Ahmed",
+      "english": "My name is Ahmed"
+    }
+  },
+  "food": {
+    "translations": ["makla", "مكلة"],
+    "example": {
+      "arabic": "Makla bnina",
+      "english": "Delicious food"
+    }
+  },
+  "car": [
+    {
+      "translations": ["tonobil"],
+      "example": {
+        "arabic": "Tonobil jdida",
+        "english": "New car"
+      }
+    },
+    {
+      "translations": ["loto"],
+      "example": {
+        "arabic": "loto chaba",
+        "english": "Beautiful car"
+      }
+    }
+  ],
+  "book": {
+    "translations": ["ktab", "كتاب"],
+    "example": {
+      "arabic": "Rani nqra fi ktab",
+      "english": "I am reading a book"
+    }
+  },
+  "friend": {
+    "translations": ["sahbi", "صاحبي"],
+    "example": {
+      "arabic": "Sahbi hader m3aya",
+      "english": "My friend spoke with me"
+    }
+  },
+  "school": {
+    "translations": ["msid", "مسيد"],
+    "example": {
+      "arabic": "Rohna l msid",
+      "english": "We went to school"
+    }
+  }
+}
