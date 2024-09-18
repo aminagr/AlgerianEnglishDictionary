@@ -8,6 +8,7 @@ A Python app designed for translating words between English and Algerian Arabic.
 - **Smart Suggestions**: If a word isn't found, receive intelligent suggestions based on similar words, powered by fuzzy matching.
 - **Example Sentences**: Each translation includes an example sentence in both Arabic and English for better understanding. 
 - **User-Friendly Interface**: Simple command-line interface for easy interaction.
+- **Flask API**: Access translations through a RESTful API for integration with other applications.
 - **Efficient Data Handling**: Loads translation data from a structured JSON file for fast access.
 
 ## 📦 Installation
@@ -19,7 +20,8 @@ To get started with the Algerian English Dictionnary , follow these simple steps
    git clone https://github.com/aminagr/AlgerianEnglishDictionnary
    cd AlgerianEnglishDictionnary
    pip install fuzzywuzzy
-   python main.py
+   python main.py  # For command-line usage
+   python api.py    # To run the Flask API
   ```
 ## 🌟 Why Use This App?
 
@@ -27,7 +29,7 @@ To get started with the Algerian English Dictionnary , follow these simple steps
 - **Travel Preparation**: Equip yourself with essential phrases before your next trip to Algeria.
 - **Cultural Exchange**: Foster better communication and understanding with Algerian speakers.
 - **Quick Reference**: An easy-to-use reference tool for translators and language enthusiasts.
-
+- **API Integration** : Use the API for applications or services that require translation features.
 ## 🤝 Contributing
 
 We welcome contributions from the community! If you have suggestions for new features, improvements, or bug fixes, please open an issue or submit a pull request.
