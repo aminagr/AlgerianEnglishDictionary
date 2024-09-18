@@ -19,7 +19,7 @@ To get started with the Algerian English Dictionnary , follow these simple steps
    ```bash
    git clone https://github.com/aminagr/AlgerianEnglishDictionary
    cd AlgerianEnglishDictionary
-   pip install fuzzywuzzy
+   pip install flask fuzzywuzzy
    python main.py  # For command-line usage
    python api.py    # To run the Flask API
   ```
